@@ -19,3 +19,40 @@ public class DBconnect
             e.printStackTrace();
         }
     }
+
+    public static int addUpdateDelete(String sql){
+        int i=0;
+        try{
+            ps=conn.prepareStatement(sql);
+            boolean flag= ps.execute();
+            if(flag==false){//如果第一个结果是结果集对象，则返回true;如果第一个结果是更新计数或者没有结果，则返回false
+                i++;
+            }
+        }catch(Exception e){
+            System.out.println("数据库增删改异常 ");
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    public static ResultSet selectSql(String sql){
+        try{
+            ps=conn.prepareStatement(sql);
+            rs=ps.executeQuery();
+
+        }catch(Exception e){
+            System.out.println("数据库查询异常");
+            e.printStackTrace();
+        }
+        return rs;
+    }
+
+    public static  void closeConn(){
+        try{
+            conn.close();
+        }catch(Exception e){
+            System.out.println("数据库关闭异常");
+            e.printStackTrace();
+        }
+    }
+}
